@@ -5,9 +5,9 @@ $(document).ready(function () {
         let lettersUsed = $(this).val().split('').length;
         $(this).parent().children('.counter').text(140 - lettersUsed);
 
-        if(lettersUsed.length > 140) {
+        if(lettersUsed === 141) {
             $(this).parent().children('.counter').css('color', 'red');
-        } else {
+        } else if (lettersUsed === 140) {
             $(this).parent().children('.counter').css('color', 'white');  
         }
     });
