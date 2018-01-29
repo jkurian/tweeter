@@ -1,0 +1,35 @@
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.new-tweet h2 {
+    border-bottom: 2px solid #141C26;
+    padding-bottom: 0.5em;
+}
+.new-tweet {
+    border-radius: 25px;
+    border: 1px solid #2C5B61;
+    background-color: #2B3D54;
+    color: #FFF;
+}
+
+.new-tweet textarea {
+    width: 90%;
+    padding-left: 0.5em;
+    padding-top: 0.3em;
+}
+.new-tweet input {
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.new-tweet .counter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0.75em;
+    margin-right: 1em;
+}
