@@ -13,7 +13,7 @@ $(document).ready(function () {
 
         //Should I use this here? Maybe refactor
         let tweetBody = $('.new-tweet form textarea[name="tweetText"]').val();
-        
+
         //If the tweetBody is null or an empty string we do not make the POST request
         if (tweetBody === null || tweetBody === "") {
             console.log("error");
@@ -27,7 +27,7 @@ $(document).ready(function () {
             alert("Your tweet is empty!");
             return;
         }
-        
+
         //If we get here, the tweet is valid and we can make the POST request which is
         //within the postNewTweet method
         postNewTweet(escape(tweetBody));
@@ -38,7 +38,7 @@ $(document).ready(function () {
     //can begin typing their tweet immediately
     $("#nav-bar > .compose-tweet").on('click', function (event) {
         $(".new-tweet").slideToggle("slow", () => {
-            if($(".new-tweet").is(':visible')) {
+            if ($(".new-tweet").is(':visible')) {
                 $(".new-tweet form textarea").focus();
             }
         });

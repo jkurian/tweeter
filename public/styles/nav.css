@@ -16,11 +16,13 @@
     font-size: 2em;
     line-height: 2.5em;
 }
+
 #nav-bar .logo {
-    width: 80px; 
+    width: 80px;
     height: 80px;
     float: left;
 }
+
 .space {
     height: 800px;
 }
@@ -36,10 +38,11 @@
     border: 2px solid rgb(255, 255, 255);
 }
 
-.grow-border { 
-    transition: all .2s ease-in-out; 
+.grow-border {
+    transition: all .2s ease-in-out;
 }
-.grow-border:hover { 
+
+.grow-border:hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 30px 0px rgb(255, 255, 255);
 }

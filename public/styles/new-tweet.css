@@ -9,6 +9,7 @@
     padding-bottom: 0.5em;
     width: 100%;
 }
+
 .new-tweet {
     border-radius: 25px;
     border: 1px solid #2C5B61;
@@ -21,14 +22,16 @@
     padding-left: 0.5em;
     padding-top: 0.3em;
 }
+
 .new-tweet input {
-    padding-left: 1em; 
+    padding-left: 1em;
     padding-right: 1em;
     margin-left: 1.5em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     float: left;
 }
+
 .new-tweet .counter {
     position: relative;
     bottom: 0;
@@ -38,11 +41,3 @@
     margin-top: 0.5em;
     float: right;
 }
-
-/* INTERFERES WITH slideUp!
- .grow { 
-    transition: all .2s ease-in-out; 
-}
-.grow:hover { 
-    transform: scale(1.1); 
-} */
