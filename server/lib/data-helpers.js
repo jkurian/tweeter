@@ -8,32 +8,32 @@ module.exports = function makeDataHelpers(db) {
   return {
 
     // Saves a tweet to `db`
-    saveTweet: function(newTweet, callback) {
+    saveTweet: function (newTweet, callback) {
       // simulateDelay(() => {
       //   db.tweets.push(newTweet);
       //   callback(null, true);
       // });
-      console.log("This is adding a new tweet to DB!");
-      console.log("newTweet", newTweet);
+      // console.log("This is adding a new tweet to DB!");
+      // console.log("newTweet", newTweet);
 
       db.collection("tweets").insertOne(newTweet);
       callback(null, true);
     },
 
     // Get all tweets in `db`, sorted by newest first
-    getTweets: function(callback) {
+    getTweets: function (callback) {
       // simulateDelay(() => {
       //   const sortNewestFirst = (a, b) => a.created_at - b.created_at;
       //   callback(null, db.tweets.sort(sortNewestFirst));
       // });
-      console.log("This is a getting tweet from DB!!");
+      // console.log("This is a getting tweet from DB!!");
       db.collection("tweets").find().toArray((err, tweets) => {
         if (err) {
           return callback(err);
         }
         callback(null, tweets);
       });
-      
+
     }
 
   };

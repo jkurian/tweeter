@@ -10,10 +10,10 @@ $(document).ready(function () {
         //set the text on the page
         $(this).parent().children('.counter').text(140 - lettersUsed);
         //set the color if we are over 140 characters (including whitespace)
-        if(lettersUsed > maxLetters) {
+        if (lettersUsed > maxLetters) {
             $(this).parent().children('.counter').css('color', 'red');
         } else if (lettersUsed <= maxLetters) {
-            $(this).parent().children('.counter').css('color', 'white');  
+            $(this).parent().children('.counter').css('color', 'white');
         }
     });
 })
