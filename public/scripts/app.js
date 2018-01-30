@@ -39,7 +39,12 @@ $(document).ready(function () {
 
     $("#nav-bar > .compose-tweet").on('click', function (event) {
         // event.preventDefault();
-        $(".new-tweet").slideToggle(400, () => {
+        //Does not animate properly
+        $(".new-tweet").slideToggle( {
+            duration: 10000,
+            easing: "linear",
+            queue: false
+        }, () => {
             if($(".new-tweet").is(':visible')) {
                 $(".new-tweet form textarea").focus();
             }
