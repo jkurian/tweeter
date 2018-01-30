@@ -36,10 +36,9 @@
 }
 .tweet-header p {
     margin: 1em;
+    float: right;
 }
-.tweets header {
-    /* border: 1px solid #141C26; */
-}
+
 .tweets footer {
     border-top: 1px solid #141C26;
 }
@@ -53,13 +52,19 @@
     margin: 1.75em 0em;
 }
 
-#footer-icons {
-    display: inline-block;
-    float: right;
+.footer-icons {
     margin: 0.5em;
+    float: right;
     visibility: hidden;
 }
 
-.tweets:hover #footer-icons {
+.tweets:hover .footer-icons {
     visibility: visible;
+}
+
+.grow { 
+    transition: all .2s ease-in-out; 
+}
+.grow:hover { 
+    transform: scale(1.1); 
 }
