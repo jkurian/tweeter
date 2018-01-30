@@ -1,3 +1,4 @@
+// const flash = require('flash-message');
 /*
  * Client-side JS logic goes here
  * jQuery is already loaded
@@ -7,10 +8,24 @@ $(document).ready( function () {
     // renderTweets(data);
     loadTweets();
     $(".new-tweet form").submit( function (event) {
-        console.log("Handler for submit called.");
         event.preventDefault();
-        let formData = $(this).serialize();
-        console.log(formData); // Only contains text field from tweet
+        console.log("Handler for submit called.");
+        let formDataSerialized = $(this).serialize();
+        console.log(formDataSerialized);
+        if(formDataSerialized === null || formDataSerialized === "") {
+            console.log("error");
+            return;
+        }
+        //Need to update to flash animations!
+        if( formDataSerialized.length - 10 > 140) {
+            alert("Your tweet is too long!")
+            return;
+        } else if (formDataSerialized.length - 10 === 0) {
+            alert("Your tweet is empty!");
+            return;
+        }
+        console.log("success"); // Only contains text field from tweet
+
     })
 }); 
 
