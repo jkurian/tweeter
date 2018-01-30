@@ -39,9 +39,10 @@
     float: right;
 }
 
-.grow { 
+/* INTERFERES WITH slideUp!
+ .grow { 
     transition: all .2s ease-in-out; 
 }
 .grow:hover { 
     transform: scale(1.1); 
-}
+} */

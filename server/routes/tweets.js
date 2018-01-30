@@ -7,6 +7,7 @@ const tweetsRoutes  = express.Router();
 
 module.exports = function(DataHelpers) {
 
+  //Gets the tweets in the database 
   tweetsRoutes.get("/", function(req, res) {
     DataHelpers.getTweets((err, tweets) => {
       if (err) {
@@ -22,6 +23,9 @@ module.exports = function(DataHelpers) {
       res.status(400).json({ error: 'invalid request: no data in POST body'});
       return;
     }
+    //Generate the tweet, we use the req.body passed to this POST.
+    //If you trace it back, you will see we pass in an object with
+    //Only a text key which contains the tweet body value (what we are actually tweeting)
     const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
     const tweet = {
       user: user,
