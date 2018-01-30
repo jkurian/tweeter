@@ -4,3 +4,9 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+$(document).ready( function () {
+    $(".tweets").hover( function () {
+        $("#footer-icons").toggleClass("animated bounce");
+        $(this).toggleClass("animated bounce");
+    })
+}) 
