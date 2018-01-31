@@ -24,6 +24,10 @@ module.exports = function makeDataHelpers(db) {
         if (err) {
           return callback(err);
         }
+        console.log(tweets);
+        tweets.sort((a,b) => {
+          return b.created_at - a.created_at
+        })
         callback(null, tweets);
       });
 
