@@ -124,7 +124,11 @@ let createFooter = function (tweet) {
     if(flag) {
         $footer.append("<p> " + timeSinceTweet + " hours old");
     } else {
-        $footer.append("<p> " + timeSinceTweet + " days old");
+        if(timeSinceTweet < 1) {
+            $footer.append("<p> A few seconds ago...");
+        } else {
+            $footer.append("<p> " + timeSinceTweet + " days old");
+        }
     }
     
     let $footerIcons = $("<div>").attr("class", "footer-icons");
@@ -132,7 +136,7 @@ let createFooter = function (tweet) {
     $footerIcons.append("<i class='material-icons'>favorite")
     $footerIcons.append("<i class='material-icons'>flag")
     $footer.append($footerIcons);
-    
+
     return $footer;
 }
 
