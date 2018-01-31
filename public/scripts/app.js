@@ -53,11 +53,13 @@ let postNewTweet = function (tweetBody) {
         text: tweetBody
     }
     $.post("/tweets", tweetText, function (data) {
-        loadTweets();
-        addAnimations();
+        clearTweets();
+           loadTweets();
+           addAnimations();
     })
     //clear the form after we tweet
     $(".new-tweet form textarea").val("");
+    $(".new-tweet form > .counter").text(140);
 }
 
 //To prevent script injections
@@ -67,6 +69,9 @@ let escape = function (str) {
     return div.innerHTML;
 }
 
+let clearTweets = function () {
+    $(".tweets").remove()
+}
 //GET all the tweets found in the mongodb and render them to the page
 //We also reload the animations after rendering the tweets
 let loadTweets = function () {
