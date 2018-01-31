@@ -54,8 +54,8 @@ let postNewTweet = function (tweetBody) {
     }
     $.post("/tweets", tweetText, function (data) {
         clearTweets();
-           loadTweets();
-           addAnimations();
+        loadTweets();
+        addAnimations();
     })
     //clear the form after we tweet
     $(".new-tweet form textarea").val("");
@@ -113,8 +113,19 @@ let createHeader = function (tweet) {
 
 //Create the footer for the tweeter page
 let createFooter = function (tweet) {
+    let timeSinceTweet = ((Date.now() - tweet.created_at) / (1000 * 60 * 60 * 24));
+    let flag = false;
+    if(timeSinceTweet < 1) {
+        timeSinceTweet *= 24;
+        flag = true;
+    }
+    timeSinceTweet = Math.floor(timeSinceTweet);
     let $footer = $("<footer>").addClass("tweet-footer clearfix");
-    $footer.append("<p>10 days old"); //Have to add date element
+    if(flag) {
+        $footer.append("<p> " + timeSinceTweet + " hours old");
+    } else {
+        $footer.append("<p> " + timeSinceTweet + " days old");
+    }
     let $footerIcons = $("<div>").attr("class", "footer-icons");
     $footerIcons.append("<i class='material-icons'>rotate_left")
     $footerIcons.append("<i class='material-icons'>favorite")
