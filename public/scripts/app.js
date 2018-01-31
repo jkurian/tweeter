@@ -16,7 +16,7 @@ $(document).ready(function () {
 
         //If the tweetBody is null or an empty string we do not make the POST request
         if (tweetBody === null || tweetBody === "") {
-            console.log("error");
+            alert("Your tweet is empty!");
             return;
         }
         //Alert the user if their tweet is too long or empty and return
