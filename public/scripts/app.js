@@ -126,6 +126,7 @@ let createFooter = function (tweet) {
     } else {
         $footer.append("<p> " + timeSinceTweet + " days old");
     }
+    
     let $footerIcons = $("<div>").attr("class", "footer-icons");
     $footerIcons.append("<i class='material-icons'>rotate_left")
     $footerIcons.append("<i class='material-icons'>favorite")
