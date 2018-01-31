@@ -123,10 +123,10 @@ let createFooter = function (tweet) {
         if (timeSinceTweet < 1) {
             $footer.append("<p> Less than an hour ago...");
         } else {
-            $footer.append("<p> " + timeSinceTweet + " hours old");
+            $footer.append("<p> " + timeSinceTweet + " hours ago");
         }
     } else {
-        $footer.append("<p> " + timeSinceTweet + " days old");
+        $footer.append("<p> " + timeSinceTweet + " days ago");
     }
 
     let $footerIcons = $("<div>").attr("class", "footer-icons");
