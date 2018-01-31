@@ -43,7 +43,7 @@ h2 {
 }
 .tweets:hover {
     border: 2px solid #141C26;
-    box-shadow: 5px 10px rgb(20, 28, 38, 0.5);
+    box-shadow: 5px 10px rgba(20, 28, 38, 0.25);
 }
 .tweet-header p {
     margin: 1em;
