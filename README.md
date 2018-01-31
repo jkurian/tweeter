@@ -25,3 +25,4 @@ OR
 - Node 5.10.x or above
 - Chance
 - MongoDB
+- MD5
