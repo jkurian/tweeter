@@ -122,13 +122,13 @@ let createFooter = function (tweet) {
     timeSinceTweet = Math.floor(timeSinceTweet);
     let $footer = $("<footer>").addClass("tweet-footer clearfix");
     if(flag) {
-        $footer.append("<p> " + timeSinceTweet + " hours old");
-    } else {
         if(timeSinceTweet < 1) {
-            $footer.append("<p> A few seconds ago...");
+            $footer.append("<p> Less than an hour ago...");
         } else {
-            $footer.append("<p> " + timeSinceTweet + " days old");
+            $footer.append("<p> " + timeSinceTweet + " hours old");
         }
+    } else {
+        $footer.append("<p> " + timeSinceTweet + " days old");
     }
     
     let $footerIcons = $("<div>").attr("class", "footer-icons");
