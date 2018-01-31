@@ -102,10 +102,9 @@ let renderTweets = function (tweetArray) {
 let createHeader = function (tweet) {
     let $header = $("<header>").addClass("tweet-header");
 
-    let imgTag = "<img src=" + tweet.user.avatars.small + ">"
-
-    $header.append(imgTag);
-    $header.append("<h2>" + tweet.user.name);
+    let imgAndName = "<div><img src=" + tweet.user.avatars.small + ">" + "<h2>" + tweet.user.name;
+    $header.append(imgAndName);
+    
     $header.append("<p>" + tweet.user.handle);
     // console.log("header = ", $header)
     return $header;
