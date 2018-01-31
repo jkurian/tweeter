@@ -104,9 +104,8 @@ let createHeader = function (tweet) {
 
     let imgAndName = "<div><img src=" + tweet.user.avatars.small + ">" + "<h2>" + tweet.user.name;
     $header.append(imgAndName);
-    // $header.append("<h2>" + tweet.user.name + "</div>");
     $header.append("<p>" + tweet.user.handle);
-    // console.log("header = ", $header)
+
     return $header;
 }
 
