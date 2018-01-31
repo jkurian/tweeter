@@ -15,6 +15,10 @@ This repository is the starter code for the project: Students will fork and clon
 3. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
 4. Go to <http://localhost:8080/> in your browser.
 
+OR
+
+1. Visit the prototype for this app on Heroku: https://pure-retreat-83293.herokuapp.com/
+
 ## Dependencies
 
 - Express
