@@ -40,10 +40,11 @@ h2 {
 
 .tweets:hover .tweet-header {
     opacity: 1;
+}
+.tweets:hover {
     border: 2px solid #141C26;
     box-shadow: 5px 10px #141C26;
 }
-
 .tweet-header p {
     margin: 1em;
     float: right;
