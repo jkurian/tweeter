@@ -93,12 +93,26 @@ let updateLike = function (tweet, $tweetElement) {
     // let likes = ($tweet.data('likes'));
     // $tweet.data('likes', ++likes);
     // tweet.user.name = "changed_name"
+    tweet.likes++;
+    let likes = tweet.likes;
     let id = $tweetElement.attr('id');
-    let likes = $tweetElement.data('likes');
-    ++likes;
-    $tweetElement.data('likes', likes);
+    // let likes = $tweetElement.data('likes');
+    // ++likes;
+    $tweetElement.data('likes', tweet.likes);
     // $tweetElement = createTweetElement(tweet);
-   $(`#${id} .tweet-likes`).text(`${$tweetElement.data('likes')} likes`);
+   $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
+//    $.post("/tweets", tweetText, function (data) {
+//     clearTweets();
+//     loadTweets();
+//     addAnimations();
+// })
+    let tweetObj = {
+        _id: tweet._id,
+        likes: tweet.likes
+    }
+   $.post('/tweets/likes/', tweetObj, function() {
+       console.log('updated database');
+   })
     // $tweetElement.replaceWith(createTweetElement(tweet));
     // console.log(likes);
 }
@@ -108,8 +122,8 @@ let renderTweets = function (tweetArray) {
     for (let tweet of tweetArray) {
         console.log(tweet);
         let $tweetElement = createTweetElement(tweet);
-        $tweetElement.data('likes', 0);
-        $tweetElement.append(`<p class='tweet-likes'>${$tweetElement.data('likes')} likes</p>`)
+        $tweetElement.data('likes', tweet.likes);
+        $tweetElement.append(`<p class='tweet-likes'>${tweet.likes} likes</p>`)
         $tweetElement.on('click', () => updateLike(tweet, $tweetElement));
         $(".container").append($tweetElement);
     }
