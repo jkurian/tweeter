@@ -40,6 +40,9 @@ $(document).ready(function () {
         });
     })
 
+    $('tweet').on('click', function () {
+        console.log("clicked!");
+    });
 });
 
 //POST request to add new tweet to mongo database (tweets collection)
