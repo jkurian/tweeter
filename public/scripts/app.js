@@ -15,7 +15,7 @@ $(document).ready(function () {
         let tweetBody = $('.new-tweet form textarea[name="tweetText"]').val();
         //If the tweetBody is null or an empty string we do not make the POST request
         if (tweetBody === null || tweetBody === "") {
-            alert("Your tweet is empty!");
+            console.log("error");
             return;
         }
         //Alert the user if their tweet is too long or empty and return
