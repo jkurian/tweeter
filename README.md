@@ -7,7 +7,7 @@ This repository is the starter code for the project: Students will fork and clon
 ## Final Product
 !["screenshot of full app GUI"](/public/images/Full_GUI.png)
 !["screenshot of zoomed in portion of GUI"](/public/images/Zoomed_GUI.png)
-You can access a prototype for this app via: https://pure-retreat-83293.herokuapp.com/
+You can access a prototype for this app via: https://polar-dawn-96141.herokuapp.com/
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ You can access a prototype for this app via: https://pure-retreat-83293.herokuap
 
 OR
 
-1. Visit the prototype for this app on Heroku: https://pure-retreat-83293.herokuapp.com/
+1. Visit the prototype for this app on Heroku: https://polar-dawn-96141.herokuapp.com/
 
 ## Dependencies
 
