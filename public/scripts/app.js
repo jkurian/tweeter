@@ -14,18 +14,15 @@ $(document).ready(function () {
         //Should I use this here? Maybe refactor
         let tweetBody = $('.new-tweet form textarea[name="tweetText"]').val();
         //If the tweetBody is null or an empty string we do not make the POST request
-        if (tweetBody === null || tweetBody === "") {
-            console.log("error");
+        if (!tweetBody) {
+            alert("You cant tweet nothing!");
             return;
         }
         //Alert the user if their tweet is too long or empty and return
         if (tweetBody.length > 140) {
             alert("Your tweet is too long!")
             return;
-        } else if (tweetBody.length === 0) {
-            alert("Your tweet is empty!");
-            return;
-        }
+        } 
 
         //If we get here, the tweet is valid and we can make the POST request which is
         //within the postNewTweet method
