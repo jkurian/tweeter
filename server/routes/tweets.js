@@ -4,6 +4,8 @@ const userHelper = require("../lib/util/user-helper")
 
 const express = require('express');
 const tweetsRoutes = express.Router();
+const cookieSession = require('cooke-session');
+const bcrypt = require('bcrypt');
 
 module.exports = function (DataHelpers) {
 
@@ -62,6 +64,10 @@ module.exports = function (DataHelpers) {
       }
     })
   })
+
+  tweetsRoutes.post("/login", function (req, res) {
+    
+  });
 
   return tweetsRoutes;
 
