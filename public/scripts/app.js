@@ -4,6 +4,7 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+
 $(document).ready(function () {
     loadTweets();
     //Event hanlder for submit on the tweet form
@@ -13,14 +14,16 @@ $(document).ready(function () {
         //Should I use this here? Maybe refactor
         let tweetBody = $('.new-tweet form textarea[name="tweetText"]').val();
         //If the tweetBody is null or an empty string we do not make the POST request
-        if (!tweetBody) {
-            $.flash("Your tweet is empty!");
+        if (tweetBody === null || tweetBody === "") {
             console.log("error");
             return;
         }
         //Alert the user if their tweet is too long or empty and return
         if (tweetBody.length > 140) {
-            $.flash("Your tweet is too long!");
+            alert("Your tweet is too long!")
+            return;
+        } else if (tweetBody.length === 0) {
+            alert("Your tweet is empty!");
             return;
         }
 
@@ -39,45 +42,19 @@ $(document).ready(function () {
             }
         });
     })
-    // console.log("tweet before clicked");
-    $('.tweets').on('click', function (event) {
-        console.log("tweet clicked");
-        event.preventDefault();
-        let tweetLikes = $(this).data().likes++;
-        console.log(tweetLikes)
-    })
-    
+
 });
 
-let likeEvent = function (tweetObj) {
-    console.log("tweet clicked");
-    event.preventDefault();
-    console.log($(this).data().UUID);
-    let tweetInfo = {
-        UUID: $(this).data().UUID,
-        likes: $(this).data().likes
-    } 
-    console.log("About to make AJAX POST to /likes")
-
-    $.post("/tweets/likes", tweetInfo, function() {
-        console.log("updated likes in db");
-        clearTweets();
-        loadTweets();
-    })
-    
-    //update database here?
-    
-}
 //POST request to add new tweet to mongo database (tweets collection)
 let postNewTweet = function (tweetBody) {
     //To pass to the post for writing the tweet
     let tweetText = {
         text: tweetBody
     }
-    $.post("/tweets", tweetText, function (updatedTweet) {
-        console.log("DONE")
-       let tweetToUpdate = $(".tweets").find(`[data-UUID='${updatedTweet.UUID}']`);
-       console.log("Tweet to update = ", tweetToUpdate);
+    $.post("/tweets", tweetText, function (data) {
+        clearTweets();
+        loadTweets();
+        addAnimations();
     })
     //clear the form after we tweet
     $(".new-tweet form textarea").val("");
@@ -102,6 +79,7 @@ let loadTweets = function () {
         addAnimations();
     })
 }
+
 //Adds bounce animation to all the tweets on hover
 let addAnimations = function () {
     $(".tweets").hover(function () {
@@ -115,13 +93,10 @@ let addAnimations = function () {
 let renderTweets = function (tweetArray) {
     for (let tweet of tweetArray) {
         let $tweetElement = createTweetElement(tweet);
-        $tweetElement.on('click', likeEvent);
-        $tweetElement.data('likes', tweet.likes)
-        $tweetElement.data('UUID', tweet.UUID)
-        console.log("tweet likes = ", tweet.likes);
         $(".container").append($tweetElement);
     }
 }
+
 //Create the header for the tweeter page
 let createHeader = function (tweet) {
     let $header = $("<header>").addClass("tweet-header");
@@ -144,7 +119,6 @@ let createFooter = function (tweet) {
     }
     timeSinceTweet = Math.floor(timeSinceTweet);
     let $footer = $("<footer>").addClass("tweet-footer clearfix");
-    $footer.data('likes', 0);
 
     if(flag) {
         if(timeSinceTweet < 1) {
@@ -157,7 +131,7 @@ let createFooter = function (tweet) {
     }
     let $footerIcons = $("<div>").attr("class", "footer-icons");
     $footerIcons.append("<i class='material-icons'>rotate_left")
-    $footerIcons.append("<div class='likes-container'><i class='material-icons' class='fav'>favorite</i><p class='likes'>"+tweet.likes+"</p></div>")
+    $footerIcons.append("<i class='material-icons'>favorite")
     $footerIcons.append("<i class='material-icons'>flag")
     $footer.append($footerIcons);
 
