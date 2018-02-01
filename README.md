@@ -27,3 +27,4 @@ OR
 - Chance
 - MongoDB
 - MD5
+- Flash-message
