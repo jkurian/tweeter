@@ -7,6 +7,11 @@
 
 $(document).ready(function () {
     loadTweets();
+
+    // $('.tweet').on('click', function () {
+    //     console.log('clicked tweet')
+    // })
+
     //Event hanlder for submit on the tweet form
     $(".new-tweet form").submit(function (event) {
         event.preventDefault();
@@ -39,10 +44,6 @@ $(document).ready(function () {
             }
         });
     })
-
-    $('tweet').on('click', function () {
-        console.log("clicked!");
-    });
 });
 
 //POST request to add new tweet to mongo database (tweets collection)
@@ -88,11 +89,28 @@ let addAnimations = function () {
     })
 }
 
+let updateLike = function (tweet, $tweetElement) {
+    // let likes = ($tweet.data('likes'));
+    // $tweet.data('likes', ++likes);
+    // tweet.user.name = "changed_name"
+    let id = $tweetElement.attr('id');
+    let likes = $tweetElement.data('likes');
+    ++likes;
+    $tweetElement.data('likes', likes);
+    // $tweetElement = createTweetElement(tweet);
+   $(`#${id} .tweet-likes`).text(`${$tweetElement.data('likes')} likes`);
+    // $tweetElement.replaceWith(createTweetElement(tweet));
+    // console.log(likes);
+}
 //Goes through the array of tweets, generates the tweet element in
 //createTweetElement with JQuery and render it
 let renderTweets = function (tweetArray) {
     for (let tweet of tweetArray) {
+        console.log(tweet);
         let $tweetElement = createTweetElement(tweet);
+        $tweetElement.data('likes', 0);
+        $tweetElement.append(`<p class='tweet-likes'>${$tweetElement.data('likes')} likes</p>`)
+        $tweetElement.on('click', () => updateLike(tweet, $tweetElement));
         $(".container").append($tweetElement);
     }
 }
@@ -122,7 +140,7 @@ let createFooter = function (tweet) {
 
     if(flag) {
         if(timeSinceTweet < 1) {
-            $footer.append("<p> Less than an hour ago...");
+            $footer.append(`<p> Less than an hour ago...`);
         } else {
             $footer.append("<p> " + timeSinceTweet + " hours old");
         }
@@ -140,7 +158,7 @@ let createFooter = function (tweet) {
 
 //Create the full for tweet HTML element which is eventually rendered to the page
 let createTweetElement = function (tweet) {
-    let $tweetArticle = $("<section class='tweets'>");
+    let $tweetArticle = $(`<section class='tweets' id=${tweet._id}>`);
     let $innerArticle = $("<article>");
 
     let $header = createHeader(tweet);
