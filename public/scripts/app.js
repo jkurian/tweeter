@@ -103,13 +103,8 @@ let createHeader = function (tweet) {
 
     let imgAndName = "<div><img src=" + tweet.user.avatars.small + ">" + "<h2>" + tweet.user.name;
     $header.append(imgAndName);
-<<<<<<< HEAD
-
-    $header.append("<p>" + tweet.user.handle);
-=======
     $header.append("<p>" + tweet.user.handle);
 
->>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
     return $header;
 }
 
@@ -117,38 +112,23 @@ let createHeader = function (tweet) {
 let createFooter = function (tweet) {
     let timeSinceTweet = ((Date.now() - tweet.created_at) / (1000 * 60 * 60 * 24));
     let flag = false;
-<<<<<<< HEAD
-    if (timeSinceTweet < 1) {
-=======
+
     if(timeSinceTweet < 1) {
->>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
         timeSinceTweet *= 24;
         flag = true;
     }
     timeSinceTweet = Math.floor(timeSinceTweet);
     let $footer = $("<footer>").addClass("tweet-footer clearfix");
-<<<<<<< HEAD
-    if (flag) {
-        if (timeSinceTweet < 1) {
-            $footer.append("<p> Less than an hour ago...");
-        } else {
-            $footer.append("<p> " + timeSinceTweet + " hours ago");
-=======
+
     if(flag) {
         if(timeSinceTweet < 1) {
             $footer.append("<p> Less than an hour ago...");
         } else {
             $footer.append("<p> " + timeSinceTweet + " hours old");
->>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
         }
     } else {
         $footer.append("<p> " + timeSinceTweet + " days ago");
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
     let $footerIcons = $("<div>").attr("class", "footer-icons");
     $footerIcons.append("<i class='material-icons'>rotate_left")
     $footerIcons.append("<i class='material-icons'>favorite")
