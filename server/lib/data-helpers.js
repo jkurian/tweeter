@@ -14,8 +14,9 @@ module.exports = function makeDataHelpers(db) {
     getTweets: function (callback) {
       db.collection("tweets").find().toArray((err, tweets) => {
         if (err) {
-          return callback(err);
+          return callback(err, null);
         }
+
         tweets.sort((a,b) => {
           return b.created_at - a.created_at
         })

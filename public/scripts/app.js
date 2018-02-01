@@ -90,17 +90,25 @@ let addAnimations = function () {
 }
 
 let updateLike = function (tweet, $tweetElement) {
+    let id = $tweetElement.attr('id');
     // let likes = ($tweet.data('likes'));
     // $tweet.data('likes', ++likes);
     // tweet.user.name = "changed_name"
-    tweet.likes++;
+    if($tweetElement.data('liked')) {
+        tweet.likes--;
+        $tweetElement.data('liked', false);
+        $(`#${id} .heart`).text(`favorite_border`)
+    } else {
+        tweet.likes++;
+        $tweetElement.data('liked', true);
+        $(`#${id} .heart`).text(`favorite`)
+    }   
     let likes = tweet.likes;
-    let id = $tweetElement.attr('id');
+    $tweetElement.data('likes', tweet.likes);
+    $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
     // let likes = $tweetElement.data('likes');
     // ++likes;
-    $tweetElement.data('likes', tweet.likes);
     // $tweetElement = createTweetElement(tweet);
-   $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
 //    $.post("/tweets", tweetText, function (data) {
 //     clearTweets();
 //     loadTweets();
@@ -110,10 +118,10 @@ let updateLike = function (tweet, $tweetElement) {
         _id: tweet._id,
         likes: tweet.likes
     }
+    //This should be a PUT
    $.post('/tweets/likes/', tweetObj, function() {
        console.log('updated database');
    })
-    // $tweetElement.replaceWith(createTweetElement(tweet));
     // console.log(likes);
 }
 //Goes through the array of tweets, generates the tweet element in
@@ -122,6 +130,7 @@ let renderTweets = function (tweetArray) {
     for (let tweet of tweetArray) {
         console.log(tweet);
         let $tweetElement = createTweetElement(tweet);
+        $tweetElement.data('liked', false);
         $tweetElement.data('likes', tweet.likes);
         $tweetElement.append(`<p class='tweet-likes'>${tweet.likes} likes</p>`)
         $tweetElement.on('click', () => updateLike(tweet, $tweetElement));
@@ -163,7 +172,7 @@ let createFooter = function (tweet) {
     }
     let $footerIcons = $("<div>").attr("class", "footer-icons");
     $footerIcons.append("<i class='material-icons'>rotate_left")
-    $footerIcons.append("<i class='material-icons'>favorite")
+    $footerIcons.append("<i class='material-icons heart'>favorite_border")
     $footerIcons.append("<i class='material-icons'>flag")
     $footer.append($footerIcons);
 
