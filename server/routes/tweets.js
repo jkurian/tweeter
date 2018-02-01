@@ -19,6 +19,23 @@ module.exports = function (DataHelpers) {
       }
     });
   });
+  
+  tweetsRoutes.post('/likes', function (req, res) {
+    //pass in tweet ID?
+    console.log("in tweets route: /likes!!", req.body.UUID)
+    DataHelpers.saveLikes(req.body.likes, req.body.UUID, (updatedTweet, err) => {
+      if (err) {
+        res.status(500).json({
+          error: err.message
+        });
+      } else {
+        //req.body.UUID
+        //req.body.likes
+        console.log("Tweet likes updated in db", updatedTweet.likes);
+        res.status(201).send(updatedTweet);
+      }
+    });
+  }); 
 
   tweetsRoutes.post("/", function (req, res) {
     if (!req.body.text) {
@@ -32,11 +49,13 @@ module.exports = function (DataHelpers) {
     //Only a text key which contains the tweet body value (what we are actually tweeting)
     const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
     const tweet = {
+      UUID: DataHelpers.generateUUID(),
       user: user,
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      created_at: Date.now(),
+      likes: 0
     };
 
     DataHelpers.saveTweet(tweet, (err) => {
@@ -50,6 +69,6 @@ module.exports = function (DataHelpers) {
     });
   });
 
-  return tweetsRoutes;
 
+  return tweetsRoutes;
 }

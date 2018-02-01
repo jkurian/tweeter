@@ -22,6 +22,47 @@ module.exports = function makeDataHelpers(db) {
         callback(null, tweets);
       });
 
+    },
+    
+    saveLikes: function (likes, UUID, callback) {
+      let tweets = db.collection("tweets").find().toArray((err, tweets) => {
+        console.log("tweets = ", tweets);
+        let updatedTweet = '';
+        for(let tweet in tweets) {
+          console.log("tweetOBj = ", tweet);
+          console.log("UUID, TARGET UUID", tweets[tweet].UUID, UUID)
+          if(tweets[tweet].UUID == UUID) {
+            console.log("trying to update mongodb")
+            db.collection("tweets").update({UUID: UUID}, {$set: {likes: ++likes}});
+            updatedTweet = tweets[tweet];
+          }
+        }
+        callback(updatedTweet, null);
+
+      } );
+    },
+
+    generateUUID: function() {
+      function generateRandomString() {
+        let rand = Math.floor(Math.random() * 100000000).toString();
+        console.log(rand.hashCode());
+        return rand.hashCode();
+    }
+    
+    //default hash function implemented in javas .toHash function
+    //returns a string from the hashed value
+    String.prototype.hashCode = function () {
+        let hash = 0;
+        if (this.length == 0) return hash;
+        for (let i = 0; i < this.length; i++) {
+            let char = this.charCodeAt(i);
+            let rand = Math.floor(Math.random() * 100);
+            hash = ((hash << 5) - hash) + char - rand;
+            hash = Math.abs(hash & hash); // Convert to 32bit integer
+        }
+        return hash.toString(32);
+    }
+    return generateRandomString();
     }
 
   };
