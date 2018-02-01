@@ -102,7 +102,7 @@ let updateLike = function (tweet, $tweetElement) {
         tweet.likes++;
         $tweetElement.data('liked', true);
         $(`#${id} .heart`).text(`favorite`)
-    }   
+    }
     let likes = tweet.likes;
     $tweetElement.data('likes', tweet.likes);
     $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);

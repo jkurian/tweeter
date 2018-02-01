@@ -4,6 +4,8 @@ const userHelper = require("../lib/util/user-helper")
 
 const express = require('express');
 const tweetsRoutes = express.Router();
+const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session')
 
 module.exports = function (DataHelpers) {
 
@@ -51,17 +53,21 @@ module.exports = function (DataHelpers) {
     });
 
   });
-      tweetsRoutes.post('/likes', function (req, res) {
-        DataHelpers.updateLikes(req.body._id, req.body.likes, (err) => {
-          if (err) {
-            res.status(500).json({
-              error: err.message
-            });
-          } else {
-            res.status(201).send();
-          }
-        })
-      })
+  tweetsRoutes.post('/likes', function (req, res) {
+    DataHelpers.updateLikes(req.body._id, req.body.likes, (err) => {
+      if (err) {
+        res.status(500).json({
+          error: err.message
+        });
+      } else {
+        res.status(201).send();
+      }
+    })
+  })
+
+  tweetsRoutes.post("/logout", function (req, res) {
+
+  });
 
   return tweetsRoutes;
 
