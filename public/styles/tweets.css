@@ -12,7 +12,6 @@
     margin: 1em 0em;
     border: 1px solid #141C26;
     border-radius: 25px;
-    word-wrap: break-word;
 }
 
 .tweet-footer p {
@@ -42,12 +41,18 @@ h2 {
 .tweets:hover .tweet-header {
     opacity: 1;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
 .tweets:hover {
     border: 2px solid #141C26;
     box-shadow: 5px 10px rgba(20, 28, 38, 0.25);
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 66a7f11895ccedb9fcd9ddc36795fbb52cfea0f7
 .tweet-header p {
     margin: 1em;
     float: right;
