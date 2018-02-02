@@ -6,6 +6,16 @@ const PORT = process.env.PORT || 3000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const cookieSession = require('cookie-session');
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2', 'key3'],
+
+  // Cookie Options
+  // Session length is 2 hours
+  maxAge: 2 * 60 * 60 * 1000
+}));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -35,11 +45,13 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   // The `tweets-routes` module works similarly: we pass it the `DataHelpers` object
   // so it can define routes that use it to interact with the data layer.
   const tweetsRoutes = require("./routes/tweets")(DataHelpers);
-  
+
   // Mount the tweets routes at the "/tweets" path prefix:
   app.use("/tweets", tweetsRoutes);
-    app.listen(PORT, () => {
-      console.log("Example app listening on port " + PORT);
-    });
-    
+
+
+  app.listen(PORT, () => {
+    console.log("Example app listening on port " + PORT);
+  });
+
 })

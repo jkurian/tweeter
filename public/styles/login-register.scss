@@ -11,7 +11,10 @@ $main-color: #2B3D54;
     border: 2px solid $main-color;
 }
 
-.login, .register, .compose {
+.login,
+.register,
+.compose,
+.logout {
     margin-top: 2.6em;
     padding: 0.2em 0.5em;
     color: $main-color;
@@ -25,4 +28,3 @@ $main-color: #2B3D54;
     float: right;
     background-color: rgba($main-color, 0.3);
 }
-

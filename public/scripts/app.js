@@ -7,7 +7,6 @@
 
 $(document).ready(function () {
     loadTweets();
-
     // $('.tweet').on('click', function () {
     //     console.log('clicked tweet')
     // })
@@ -27,7 +26,7 @@ $(document).ready(function () {
         if (tweetBody.length > 140) {
             alert("Your tweet is too long!")
             return;
-        } 
+        }
 
         //If we get here, the tweet is valid and we can make the POST request which is
         //within the postNewTweet method
@@ -38,11 +37,21 @@ $(document).ready(function () {
     //If the .new-tweet section is visible, we set it to focus so the client
     //can begin typing their tweet immediately
     $("#nav-bar .compose").on('click', function (event) {
-        $(".new-tweet").slideToggle("slow", () => {
-            if ($(".new-tweet").is(':visible')) {
-                $(".new-tweet form textarea").focus();
+        $.get('/tweets/allowed/', function (status) {
+            if (status.status) {
+                $(".new-tweet").slideToggle("slow", () => {
+                    if ($(".new-tweet").is(':visible')) {
+                        $(".new-tweet form textarea").focus();
+                    }
+                });
+            } else {
+                $.flash("Please login first!");
             }
-        });
+        })
+    })
+
+    $('#nav-bar .register').on('click', function () {
+        $.flash("Feature not implemented yet");
     })
 
     $("#nav-bar .login").on('click', function (event) {
@@ -54,6 +63,31 @@ $(document).ready(function () {
     })
     $('.login-form > button').on('click', function (event) {
         $('#login-info').submit();
+    })
+
+    $('#nav-bar .logout').on('click', function (event) {
+        event.preventDefault();
+        console.log("logging out");
+        $.get('/tweets/logout', function () {
+            console.log("successfully logged out");
+            $('.login-register > .logout').hide();
+            $('.login-register > .login').show();
+            $('.login-register > .register').show();
+        })
+    })
+
+    $.get("/tweets/allowed", function (status) {
+        if (status.status) {
+            console.log("removing login and register")
+            $('.login-register > .login').hide();
+            $('.login-register > .register').hide();
+            $('.login-register > .logout').show();
+            // $('.login-register button .register').hide();
+        } else {
+            $('.login-register > .logout').hide();
+            $('.login-register > .login').show();
+            $('.login-register > .register').show();
+        }
     })
 });
 
@@ -101,39 +135,48 @@ let addAnimations = function () {
 }
 
 let updateLike = function (tweet, $tweetElement) {
-    let id = $tweetElement.attr('id');
-    // let likes = ($tweet.data('likes'));
-    // $tweet.data('likes', ++likes);
-    // tweet.user.name = "changed_name"
-    if($tweetElement.data('liked')) {
-        tweet.likes--;
-        $tweetElement.data('liked', false);
-        $(`#${id} .heart`).text(`favorite_border`)
-    } else {
-        tweet.likes++;
-        $tweetElement.data('liked', true);
-        $(`#${id} .heart`).text(`favorite`)
-    }
-    let likes = tweet.likes;
-    $tweetElement.data('likes', tweet.likes);
-    $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
-    // let likes = $tweetElement.data('likes');
-    // ++likes;
-    // $tweetElement = createTweetElement(tweet);
-//    $.post("/tweets", tweetText, function (data) {
-//     clearTweets();
-//     loadTweets();
-//     addAnimations();
-// })
-    let tweetObj = {
-        _id: tweet._id,
-        likes: tweet.likes
-    }
-    //This should be a PUT
-   $.post('/tweets/likes/', tweetObj, function() {
-       console.log('updated database');
-   })
-    // console.log(likes);
+    $.get('/tweets/allowed/', function (status) {
+        console.log(status);
+        if (status.status) {
+            console.log("allowed to like");
+            let id = $tweetElement.attr('id');
+            // let likes = ($tweet.data('likes'));
+            // $tweet.data('likes', ++likes);
+            // tweet.user.name = "changed_name"
+            if ($tweetElement.data('liked')) {
+                tweet.likes--;
+                $tweetElement.data('liked', false);
+                $(`#${id} .heart`).text(`favorite_border`)
+            } else {
+                tweet.likes++;
+                $tweetElement.data('liked', true);
+                $(`#${id} .heart`).text(`favorite`)
+            }
+            let likes = tweet.likes;
+            $tweetElement.data('likes', tweet.likes);
+            $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
+            // let likes = $tweetElement.data('likes');
+            // ++likes;
+            // $tweetElement = createTweetElement(tweet);
+            //    $.post("/tweets", tweetText, function (data) {
+            //     clearTweets();
+            //     loadTweets();
+            //     addAnimations();
+            // })
+            let tweetObj = {
+                _id: tweet._id,
+                likes: tweet.likes
+            }
+            //This should be a PUT
+            $.post('/tweets/likes/', tweetObj, function () {
+                console.log('updated database');
+            })
+        } else {
+            console.log("log in first!");
+            $.flash("Log in first!")
+        }
+        // console.log(likes);
+    })
 }
 //Goes through the array of tweets, generates the tweet element in
 //createTweetElement with JQuery and render it
@@ -165,15 +208,15 @@ let createFooter = function (tweet) {
     let timeSinceTweet = ((Date.now() - tweet.created_at) / (1000 * 60 * 60 * 24));
     let flag = false;
 
-    if(timeSinceTweet < 1) {
+    if (timeSinceTweet < 1) {
         timeSinceTweet *= 24;
         flag = true;
     }
     timeSinceTweet = Math.floor(timeSinceTweet);
     let $footer = $("<footer>").addClass("tweet-footer clearfix");
 
-    if(flag) {
-        if(timeSinceTweet < 1) {
+    if (flag) {
+        if (timeSinceTweet < 1) {
             $footer.append(`<p> Less than an hour ago...`);
         } else {
             $footer.append("<p> " + timeSinceTweet + " hours old");
