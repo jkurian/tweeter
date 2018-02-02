@@ -16,10 +16,6 @@ You can access a prototype for this app via: https://polar-dawn-96141.herokuapp.
 3. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
 4. Go to <http://localhost:8080/> in your browser.
 
-OR
-
-1. Visit the prototype for this app on Heroku: https://polar-dawn-96141.herokuapp.com/
-
 AND
 
 Login with the email user@example.com and the password user. Encryption and registration features to be added in the future.
