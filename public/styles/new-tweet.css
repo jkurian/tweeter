@@ -1,43 +1,39 @@
 .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
+  content: "";
+  clear: both;
+  display: table; }
 
 .new-tweet h2 {
-    border-bottom: 2px solid #141C26;
-    padding-bottom: 0.5em;
-    width: 100%;
-}
+  border-bottom: 2px solid #141C26;
+  padding-bottom: 0.5em;
+  width: 100%; }
 
 .new-tweet {
-    border-radius: 25px;
-    border: 1px solid #2C5B61;
-    background-color: #2B3D54;
-    color: #EEE;
-}
+  border-radius: 25px;
+  border: 1px solid #141C26;
+  background-color: #2B3D54;
+  color: #EEE; }
 
 .new-tweet textarea {
-    width: 90%;
-    padding-left: 0.5em;
-    padding-top: 0.3em;
-}
+  width: 90%;
+  padding-left: 0.5em;
+  padding-top: 0.3em; }
 
 .new-tweet input {
-    padding-left: 1em;
-    padding-right: 1em;
-    margin-left: 1.5em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    float: left;
-}
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  float: left; }
 
 .new-tweet .counter {
-    position: relative;
-    bottom: 0;
-    right: 0.5em;
-    margin-bottom: 0.75em;
-    margin-right: 1em;
-    margin-top: 0.5em;
-    float: right;
-}
+  position: relative;
+  bottom: 0;
+  right: 0.5em;
+  margin-bottom: 0.75em;
+  margin-right: 1em;
+  margin-top: 0.5em;
+  float: right; }
+
+/*# sourceMappingURL=new-tweet.css.map */
