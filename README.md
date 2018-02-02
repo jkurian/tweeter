@@ -20,6 +20,10 @@ OR
 
 1. Visit the prototype for this app on Heroku: https://polar-dawn-96141.herokuapp.com/
 
+AND
+
+Login with the email user@example.com and the password user. Encryption and registration features to be added in the future.
+
 ## Dependencies
 
 - Express
