@@ -1,49 +1,33 @@
-
 #nav-bar {
-    height: 80px;
-    left: 0;
-    right: 0;
-    top: 0;
-    position: fixed;
-    background-color: #2B3D54;
-    color: #e8fdff;
-    padding: 0em 2em;
-    z-index: 2;
-}
+  height: 80px;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  background-color: #2B3D54;
+  color: #e8fdff;
+  padding: 0em 2em;
+  z-index: 2; }
 
 #nav-bar .header {
-    float: left;
-    margin-left: 10px;
-    font-size: 2em;
-    line-height: 2.5em;
-}
+  float: left;
+  margin-left: 10px;
+  font-size: 2em;
+  line-height: 2.5em; }
 
 #nav-bar .logo {
-    width: 80px;
-    height: 80px;
-    float: left;
-}
+  width: 80px;
+  height: 80px;
+  float: left; }
 
 .space {
-    height: 800px;
-}
-
-.compose-tweet {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 1em;
-    padding: 0.2em 0.5em;
-    font-size: 1.2em;
-    color: #2B3D54;
-    border: 2px solid rgb(255, 255, 255);
-}
+  height: 800px; }
 
 .grow-border {
-    transition: all .2s ease-in-out;
-}
+  transition: all .2s ease-in-out; }
 
 .grow-border:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 30px 0px rgb(255, 255, 255);
-}
+  transform: scale(1.1);
+  box-shadow: 0px 0px 30px 0px white; }
+
+/*# sourceMappingURL=nav.css.map */

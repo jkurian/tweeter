@@ -40,23 +40,32 @@
 
   <!-- Old Tweets CSS -->
   <link rel="stylesheet" href="/styles/tweets.css" type="text/css" />
+
+  <!-- login-logout-register-compose CSS -->
+  <link rel="stylesheet" href="/styles/login-register.css" type="text/css" />
 </head>
 
 <body>
 
   <!-- Top nav bar (fixed) -->
-  <header>
+  <header class='clearfix'>
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
-      <button class='compose-tweet grow-border'>
-        <i class="material-icons">create</i>Compose!
-      </button>
-      <button class='login'></button>
-      <button class='register'></button>
+      <div class='button-container'>
+    <div class='login-register'>
+        <button class='compose grow-border'><i class="material-icons">create</i>Compose!</button><button class='login grow-border'><i class="material-icons">account_circle</i>Login</button><button class='register grow-border'><i class="material-icons">fiber_new</i>register</button>
+        </div>
+      </div>
     </nav>
+    <div class='login-form'>
+      <form id='login-info' action="/tweets/login" method='GET'> 
+        <input type="text" placeholder="Enter Username" name="uname" required>username
+        <input type="password" placeholder="Enter Password" name="psw" required>password
+      </form>
+      <button type="submit">Login</button>
+    </div>
   </header>
-
   <!-- Page-specific (main) content here -->
   <main class="container">
     <section class="new-tweet">

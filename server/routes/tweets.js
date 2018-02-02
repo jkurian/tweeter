@@ -5,8 +5,8 @@ const userHelper = require("../lib/util/user-helper")
 const express = require('express');
 const tweetsRoutes = express.Router();
 //May or may not need these in this file
-// const cookieSession = require('cooke-session');
-// const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session');
+const bcrypt = require('bcrypt');
 
 module.exports = function (DataHelpers) {
 
@@ -67,8 +67,32 @@ module.exports = function (DataHelpers) {
     })
   })
 
-  tweetsRoutes.post("/login", function (req, res) {
+  tweetsRoutes.get("/login", function (req, res) {
+    console.log("log in route");
+    delete req.session.user_id;
 
+    let attemptLogin;
+    let flag = false;
+
+    //Need database of users GET. then parse to try to find the user
+    //HAVE TO MAKE THIS DATA HELPER
+    DataHelpers.getUsers((err, users) => {
+      if (err) {
+        res.status(500).json({
+          error: err.message
+        });
+      } else {
+        for (let user in users) {
+          if (users[user].email === req.body.email) {
+              attemptLogin = users[user]; //get the user object
+              flag = true;
+              break;
+          }
+      }
+      }
+    });
+    
+    return res.status(200);
   });
 
   return tweetsRoutes;

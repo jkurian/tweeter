@@ -1,0 +1,28 @@
+$main-color: #2B3D54;
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.compose-tweet {
+    margin: 0.75em 0;
+    padding: 0.2em 0.5em;
+    color: $main-color;
+    border: 2px solid $main-color;
+}
+
+.login, .register, .compose {
+    margin-top: 2.6em;
+    padding: 0.2em 0.5em;
+    color: $main-color;
+    border: 2px solid $main-color;
+}
+
+.login-form {
+    display: none;
+    margin-top: 6em;
+    padding: 1em 0.5em;
+    float: right;
+    background-color: rgba($main-color, 0.3);
+}
+

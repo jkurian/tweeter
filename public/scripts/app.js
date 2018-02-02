@@ -37,12 +37,23 @@ $(document).ready(function () {
     //On click hander which hides the compose tweet section which clicked
     //If the .new-tweet section is visible, we set it to focus so the client
     //can begin typing their tweet immediately
-    $("#nav-bar > .compose-tweet").on('click', function (event) {
+    $("#nav-bar .compose").on('click', function (event) {
         $(".new-tweet").slideToggle("slow", () => {
             if ($(".new-tweet").is(':visible')) {
                 $(".new-tweet form textarea").focus();
             }
         });
+    })
+
+    $("#nav-bar .login").on('click', function (event) {
+        $(".login-form").slideToggle("slow", () => {
+            if ($(".login-form").is(':visible')) {
+                $(".login-form textarea").focus();
+            }
+        });
+    })
+    $('.login-form > button').on('click', function (event) {
+        $('#login-info').submit();
     })
 });
 
