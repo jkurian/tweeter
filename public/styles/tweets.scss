@@ -58,6 +58,7 @@ h2 {
 
 .tweets .tweet-body {
     border-top: 1px solid $secondary-color;
+    word-wrap: break-word;
 }
 
 .tweets .tweet-body p {

@@ -1,0 +1,27 @@
+.button-container {
+  display: flex;
+  justify-content: flex-end; }
+
+.compose-tweet {
+  margin: 0.75em 0;
+  padding: 0.2em 0.5em;
+  color: #2B3D54;
+  border: 2px solid #2B3D54; }
+
+.login,
+.register,
+.compose,
+.logout {
+  margin-top: 2.6em;
+  padding: 0.2em 0.5em;
+  color: #2B3D54;
+  border: 2px solid #2B3D54; }
+
+.login-form {
+  display: none;
+  margin-top: 6em;
+  padding: 1em 0.5em;
+  float: right;
+  background-color: rgba(43, 61, 84, 0.3); }
+
+/*# sourceMappingURL=login-register.css.map */

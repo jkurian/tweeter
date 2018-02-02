@@ -17,7 +17,7 @@ module.exports = function makeDataHelpers(db) {
           return callback(err, null);
         }
 
-        tweets.sort((a,b) => {
+        tweets.sort((a, b) => {
           return b.created_at - a.created_at
         })
         callback(null, tweets);
@@ -25,14 +25,33 @@ module.exports = function makeDataHelpers(db) {
 
     },
 
-    updateLikes: function(id, likes, callback) {
+    updateLikes: function (id, likes, callback) {
       //updateDB here
-      db.collection("tweets").update({"_id": ObjectId(id)},{$set: {likes: likes}});
+      db.collection("tweets").update({
+        "_id": ObjectId(id)
+      }, {
+        $set: {
+          likes: likes
+        }
+      });
 
-      db.collection("tweets").find({"_id": ObjectId(id)}).toArray((err, tweets) => {
+      db.collection("tweets").find({
+        "_id": ObjectId(id)
+      }).toArray((err, tweets) => {
         console.log(tweets);
       });
       callback(null);
+    },
+
+    getUsers: function (callback) {
+
+      db.collection("user-data").find().toArray((err, users) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, users);
+        }
+      })
     }
 
   };
