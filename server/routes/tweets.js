@@ -1,10 +1,8 @@
 "use strict";
 
 const userHelper = require("../lib/util/user-helper")
-
 const express = require('express');
 const tweetsRoutes = express.Router();
-//May or may not need these in this file
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 
@@ -23,6 +21,9 @@ module.exports = function (DataHelpers) {
     });
   });
 
+  //Generate the tweet, we use the req.body passed to this POST.
+  //If you trace it back, you will see we pass in an object with
+  //Only a text key which contains the tweet body value (what we are actually tweeting)
   tweetsRoutes.post("/", function (req, res) {
     if (!req.body.text) {
       res.status(400).json({
@@ -30,9 +31,6 @@ module.exports = function (DataHelpers) {
       });
       return;
     }
-    //Generate the tweet, we use the req.body passed to this POST.
-    //If you trace it back, you will see we pass in an object with
-    //Only a text key which contains the tweet body value (what we are actually tweeting)
     const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
     const tweet = {
       user: user,
@@ -55,6 +53,9 @@ module.exports = function (DataHelpers) {
 
   });
 
+  //If the user tries to like a post by clicking it, first check if they are logged in,
+  //If they are, we update the database which stores the tweets and likes and send back
+  //a status 200 response
   tweetsRoutes.post('/likes', function (req, res) {
     if (!req.session.userID) {
       console.log("LOG IN FIRST!");
@@ -73,6 +74,8 @@ module.exports = function (DataHelpers) {
     }
   })
 
+  //Route to check if the user is logged in or not. If the cookie session has a 
+  //userID, then we allow the client to like and compose tweets.
   tweetsRoutes.get('/allowed', function (req, res) {
     console.log("in allowed route");
     if (req.session.userID) {
@@ -86,22 +89,23 @@ module.exports = function (DataHelpers) {
     }
   })
 
+  //When the user logs out, we clear the session
   tweetsRoutes.get("/logout", function (req, res) {
     console.log('in logout route');
     req.session = null;
     res.redirect('http://localhost:3000')
   })
 
+  //Logs the user in, if they pass the correct password and email combination, then we 
+  //set the cookie session userID.
   tweetsRoutes.post("/login", function (req, res) {
     console.log("log in route", req.body);
-    // delete req.session.user_id;
 
     let attemptLogin;
     let keyForUserInfo;
     let flag = false;
 
-    //Need database of users GET. then parse to try to find the user
-    //HAVE TO MAKE THIS DATA HELPER
+    //Get the users 
     DataHelpers.getUsers((err, users) => {
       if (err) {
         res.status(500).json({
@@ -109,6 +113,7 @@ module.exports = function (DataHelpers) {
         });
       } else {
         console.log(users);
+        //First find the users email from the database returned from getUsers
         for (let userObject of users) {
           let userInfoKey = Object.keys(userObject)[1];
           let emailOfUserObj = userObject[userInfoKey].email;
@@ -120,24 +125,14 @@ module.exports = function (DataHelpers) {
             break;
           }
         }
-
+        //If an email was not found or the password does not match, we return with a 404. If
+        //the email and password match, we set the cookie session and return a 403.
         if (!flag) {
           console.log("login failed")
           res.status(404).redirect("http://localhost:3000");
         } else if (req.body.password !== attemptLogin[keyForUserInfo].password) {
           console.log("Wrong password");
           res.status(404).redirect("http://localhost:3000");
-          // for (let user in users) {
-          //   for(let userInfo of user) {
-          //     console.log(user[userInfo])
-          //     if (user[userInfo].email === req.body.email) {
-          //       attemptLogin = users[user]; //get the user object
-          //       flag = true;
-          //       console.log("Found user!", users[user].email)
-          //       break;
-          //     }
-
-          //   }
         } else {
           console.log("SUCCESS!");
           req.session.userID = attemptLogin._id;

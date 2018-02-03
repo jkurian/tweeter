@@ -7,9 +7,6 @@
 
 $(document).ready(function () {
     loadTweets();
-    // $('.tweet').on('click', function () {
-    //     console.log('clicked tweet')
-    // })
 
     //Event hanlder for submit on the tweet form
     $(".new-tweet form").submit(function (event) {
@@ -19,12 +16,12 @@ $(document).ready(function () {
         let tweetBody = $('.new-tweet form textarea[name="tweetText"]').val();
         //If the tweetBody is null or an empty string we do not make the POST request
         if (!tweetBody) {
-            alert("You cant tweet nothing!");
+            $.flash("You cant tweet nothing!");
             return;
         }
         //Alert the user if their tweet is too long or empty and return
         if (tweetBody.length > 140) {
-            alert("Your tweet is too long!")
+            $.flash("Your tweet is too long!")
             return;
         }
 
@@ -35,7 +32,8 @@ $(document).ready(function () {
 
     //On click hander which hides the compose tweet section which clicked
     //If the .new-tweet section is visible, we set it to focus so the client
-    //can begin typing their tweet immediately
+    //can begin typing their tweet immediately. We first check if the user is 
+    //logged in.
     $("#nav-bar .compose").on('click', function (event) {
         $.get('/tweets/allowed/', function (status) {
             if (status.status) {
@@ -50,21 +48,26 @@ $(document).ready(function () {
         })
     })
 
+    //on click for the register button
     $('#nav-bar .register').on('click', function () {
         $.flash("Feature not implemented yet");
     })
 
+    //on click for the login button in the navbar. Basically just shows the form.
     $("#nav-bar .login").on('click', function (event) {
         $(".login-form").slideToggle("slow", () => {
             if ($(".login-form").is(':visible')) {
                 $(".login-form textarea").focus();
             }
         });
-    })
+    });
+
+    //Submits the login info. 
     $('.login-form > button').on('click', function (event) {
         $('#login-info').submit();
     })
 
+    //Logs the user out on click
     $('#nav-bar .logout').on('click', function (event) {
         event.preventDefault();
         console.log("logging out");
@@ -76,6 +79,7 @@ $(document).ready(function () {
         })
     })
 
+    //Sets up the page on document ready to show the correct HTML
     $.get("/tweets/allowed", function (status) {
         if (status.status) {
             console.log("removing login and register")
@@ -97,6 +101,8 @@ let postNewTweet = function (tweetBody) {
     let tweetText = {
         text: tweetBody
     }
+    //On completion of adding the tweet, we clear the tweets, reload them and add animations
+    //Could also just prepend the new tweet (will implement later)
     $.post("/tweets", tweetText, function (data) {
         clearTweets();
         loadTweets();
@@ -114,6 +120,7 @@ let escape = function (str) {
     return div.innerHTML;
 }
 
+//Removes all the tweets from the HTML
 let clearTweets = function () {
     $(".tweets").remove()
 }
@@ -134,15 +141,14 @@ let addAnimations = function () {
     })
 }
 
+//Updates the likes of the tweet clicked by the client. We first check if they are logged in or not
+//if they are
 let updateLike = function (tweet, $tweetElement) {
     $.get('/tweets/allowed/', function (status) {
         console.log(status);
         if (status.status) {
             console.log("allowed to like");
             let id = $tweetElement.attr('id');
-            // let likes = ($tweet.data('likes'));
-            // $tweet.data('likes', ++likes);
-            // tweet.user.name = "changed_name"
             if ($tweetElement.data('liked')) {
                 tweet.likes--;
                 $tweetElement.data('liked', false);
@@ -155,14 +161,7 @@ let updateLike = function (tweet, $tweetElement) {
             let likes = tweet.likes;
             $tweetElement.data('likes', tweet.likes);
             $(`#${id} .tweet-likes`).text(`${tweet.likes} likes`);
-            // let likes = $tweetElement.data('likes');
-            // ++likes;
-            // $tweetElement = createTweetElement(tweet);
-            //    $.post("/tweets", tweetText, function (data) {
-            //     clearTweets();
-            //     loadTweets();
-            //     addAnimations();
-            // })
+
             let tweetObj = {
                 _id: tweet._id,
                 likes: tweet.likes
@@ -175,7 +174,6 @@ let updateLike = function (tweet, $tweetElement) {
             console.log("log in first!");
             $.flash("Log in first!")
         }
-        // console.log(likes);
     })
 }
 //Goes through the array of tweets, generates the tweet element in

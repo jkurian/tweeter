@@ -6,6 +6,7 @@ module.exports = function makeDataHelpers(db) {
 
     // Saves a tweet to `db`
     saveTweet: function (newTweet, callback) {
+      if (newTweet) return;
       db.collection("tweets").insertOne(newTweet);
       callback(null, true);
     },
@@ -25,8 +26,9 @@ module.exports = function makeDataHelpers(db) {
 
     },
 
+    //Find the tweet to update with the specified ID and set its likes to value
+    //passed to the function
     updateLikes: function (id, likes, callback) {
-      //updateDB here
       db.collection("tweets").update({
         "_id": ObjectId(id)
       }, {
@@ -34,7 +36,9 @@ module.exports = function makeDataHelpers(db) {
           likes: likes
         }
       });
-
+      //Refactor, not sure why this is here. Eventually I will have to check if 
+      //the user has liked a tweet already to see if we should increment or
+      //decrement the likes
       db.collection("tweets").find({
         "_id": ObjectId(id)
       }).toArray((err, tweets) => {
@@ -43,6 +47,7 @@ module.exports = function makeDataHelpers(db) {
       callback(null);
     },
 
+    //Returns all the users in the database
     getUsers: function (callback) {
 
       db.collection("user-data").find().toArray((err, users) => {
@@ -52,7 +57,7 @@ module.exports = function makeDataHelpers(db) {
           callback(null, users);
         }
       })
-    }
+    },
 
   };
 }
