@@ -6,20 +6,19 @@ module.exports = function makeDataHelpers(db) {
 
     // Saves a tweet to `db`
     saveTweet: function (newTweet, callback) {
-      if (newTweet) return;
+      if (!newTweet) return;
       db.collection("tweets").insertOne(newTweet);
       callback(null, true);
     },
 
     updateUser: function (userID, tweetToAdd, callback) {
       if (newTweet) return;
-      db.collection("user-data").update({
-        "_id": ObjectId(userID)
-      }, {
-        $set: {
-          tweetsLiked: tweetToAdd
-        }
-      });
+      // db.collection("user-data").update({
+      //   "_id": ObjectId(userID)
+      // }, {
+      //   $set: {
+
+      //   }
       callback(null, true);
     },
 

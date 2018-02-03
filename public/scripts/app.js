@@ -27,6 +27,7 @@ $(document).ready(function () {
 
         //If we get here, the tweet is valid and we can make the POST request which is
         //within the postNewTweet method
+        console.log("posting new tweet")
         postNewTweet(escape(tweetBody));
     })
 
@@ -104,6 +105,7 @@ let postNewTweet = function (tweetBody) {
     //On completion of adding the tweet, we clear the tweets, reload them and add animations
     //Could also just prepend the new tweet (will implement later)
     $.post("/tweets", tweetText, function (data) {
+        console.log('posted tweet, now time to render page');
         clearTweets();
         loadTweets();
         addAnimations();
@@ -128,6 +130,7 @@ let clearTweets = function () {
 //We also reload the animations after rendering the tweets
 let loadTweets = function () {
     $.get("/tweets", function (data) {
+        console.log("got tweets to render")
         renderTweets(data);
         addAnimations();
     })

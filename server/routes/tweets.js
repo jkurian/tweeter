@@ -25,6 +25,7 @@ module.exports = function (DataHelpers) {
   //If you trace it back, you will see we pass in an object with
   //Only a text key which contains the tweet body value (what we are actually tweeting)
   tweetsRoutes.post("/", function (req, res) {
+    console.log('posted tweet route');
     if (!req.body.text) {
       res.status(400).json({
         error: 'invalid request: no data in POST body'
@@ -40,13 +41,14 @@ module.exports = function (DataHelpers) {
       created_at: Date.now(),
       likes: 0
     };
-
+    console.log("going to save tweet to db")
     DataHelpers.saveTweet(tweet, (err) => {
       if (err) {
         res.status(500).json({
           error: err.message
         });
       } else {
+        console.log("saving tweet")
         res.status(201).send();
       }
     });
