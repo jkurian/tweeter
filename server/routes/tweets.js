@@ -61,7 +61,6 @@ module.exports = function (DataHelpers) {
       console.log("LOG IN FIRST!");
       res.status(404).send();
     } else {
-      console.log("UPDATING LIKES");
       DataHelpers.updateLikes(req.body._id, req.body.likes, (err) => {
         if (err) {
           res.status(500).json({
@@ -107,41 +106,70 @@ module.exports = function (DataHelpers) {
 
     //Get the users 
     DataHelpers.getUsers((err, users) => {
-      if (err) {
-        res.status(500).json({
-          error: err.message
-        });
-      } else {
-        console.log(users);
-        //First find the users email from the database returned from getUsers
-        for (let userObject of users) {
-          let userInfoKey = Object.keys(userObject)[1];
-          let emailOfUserObj = userObject[userInfoKey].email;
-          if (req.body.email === emailOfUserObj) {
-            console.log("Found email");
-            attemptLogin = userObject;
-            keyForUserInfo = userInfoKey;
-            flag = true;
-            break;
+        if (err) {
+          res.status(500).json({
+            error: err.message
+          });
+        } else {
+          console.log(users);
+          //First find the users email from the database returned from getUsers
+          for (let userObject of users) {
+            let userInfoKey = Object.keys(userObject)[1];
+            let emailOfUserObj = userObject[userInfoKey].email;
+            if (req.body.email === emailOfUserObj) {
+              console.log("Found email");
+              attemptLogin = userObject;
+              keyForUserInfo = userInfoKey;
+              flag = true;
+              break;
+            }
+          }
+          //If an email was not found or the password does not match, we return with a 404. If
+          //the email and password match, we set the cookie session and return a 403.
+          if (!flag) {
+            console.log("login failed")
+            res.status(404).redirect("http://localhost:3000");
+          } else if (req.body.password !== attemptLogin[keyForUserInfo].password) {
+            console.log("Wrong password");
+            res.status(404).redirect("http://localhost:3000");
+          } else {
+            console.log("SUCCESS!");
+            req.session.userID = attemptLogin._id;
+            res.status(403).redirect("http://localhost:3000")
           }
         }
-        //If an email was not found or the password does not match, we return with a 404. If
-        //the email and password match, we set the cookie session and return a 403.
-        if (!flag) {
-          console.log("login failed")
-          res.status(404).redirect("http://localhost:3000");
-        } else if (req.body.password !== attemptLogin[keyForUserInfo].password) {
-          console.log("Wrong password");
-          res.status(404).redirect("http://localhost:3000");
-        } else {
-          console.log("SUCCESS!");
-          req.session.userID = attemptLogin._id;
-          res.status(403).redirect("http://localhost:3000")
-        }
-      }
-    });
-  });
+      }),
 
+      tweetsRoutes.get("/liked-status", function (req, res) {
+        console.log('liked status route');
+        DataHelpers.getUsers((err, users) => {
+          if (err) {
+            res.status(500).json({
+              error: err.message
+            });
+          } else {
+            for (let user of users) {
+              console.log('user: ', user._id, req.session.userID, user.tweetsLiked[req.body._id], user);
+              if (user._id == req.session.userID && (user.tweetsLiked[req.body._id] != 'true')) {
+                console.log("liking");
+                user.tweetsLiked[req.body._id] = 'true';
+                res.status(200).json({
+                  liked: false
+                })
+                break;
+              } else {
+                console.log('false');
+                user.tweetsLiked[req.body._id] = 'false';
+                res.status(200).json({
+                  liked: true
+                })
+                break;
+              }
+            }
+          }
+        });
+      });
+  });
   return tweetsRoutes;
 
 }

@@ -145,9 +145,14 @@ let addAnimations = function () {
 //if they are
 let updateLike = function (tweet, $tweetElement) {
     $.get('/tweets/allowed/', function (status) {
-        console.log(status);
         if (status.status) {
-            console.log("allowed to like");
+            let tweetInfo = {
+                _id: tweet._id,
+                likes: tweet.likes
+            }
+            $.get('/tweets/liked-status', tweetInfo, function (hasLiked) {
+                console.log("callback", hasLiked)
+            })
             let id = $tweetElement.attr('id');
             if ($tweetElement.data('liked')) {
                 tweet.likes--;

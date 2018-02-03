@@ -11,6 +11,18 @@ module.exports = function makeDataHelpers(db) {
       callback(null, true);
     },
 
+    updateUser: function (userID, tweetToAdd, callback) {
+      if (newTweet) return;
+      db.collection("user-data").update({
+        "_id": ObjectId(userID)
+      }, {
+        $set: {
+          tweetsLiked: tweetToAdd
+        }
+      });
+      callback(null, true);
+    },
+
     // Get all tweets in `db`, sorted by newest first
     getTweets: function (callback) {
       db.collection("tweets").find().toArray((err, tweets) => {
