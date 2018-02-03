@@ -94,7 +94,7 @@ module.exports = function (DataHelpers) {
   tweetsRoutes.get("/logout", function (req, res) {
     console.log('in logout route');
     req.session = null;
-    res.redirect('http://localhost:3000')
+    res.redirect('/')
   })
 
   //Logs the user in, if they pass the correct password and email combination, then we 
@@ -130,14 +130,14 @@ module.exports = function (DataHelpers) {
           //the email and password match, we set the cookie session and return a 403.
           if (!flag) {
             console.log("login failed")
-            res.status(404).redirect("http://localhost:3000");
+            res.status(404).redirect("/");
           } else if (req.body.password !== attemptLogin[keyForUserInfo].password) {
             console.log("Wrong password");
-            res.status(404).redirect("http://localhost:3000");
+            res.status(404).redirect("/");
           } else {
             console.log("SUCCESS!");
             req.session.userID = attemptLogin._id;
-            res.status(403).redirect("http://localhost:3000")
+            res.status(403).redirect("/")
           }
         }
       }),
